@@ -1,0 +1,2 @@
+require:
+  - ./lib/rubocop/cop/custom_cops/constant_vision_cop
