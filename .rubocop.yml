@@ -1,2 +1,29 @@
 require:
   - ./lib/rubocop/cop/custom_cops/constant_vision_cop
+
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.0
+  Exclude:
+    - 'vendor/**/*'
+    - 'bin/*'
+
+CustomCops/ConstantVisionCop:
+  Enabled: false
+
+Metrics:
+  Enabled: false
+
+Lint/EmptyClass:
+  Enabled: false
+
+Lint/ConstantDefinitionInBlock:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+

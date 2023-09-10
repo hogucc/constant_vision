@@ -5,8 +5,8 @@ RSpec.describe ConstantVision do
     context 'when multiple constants are defined' do
       before(:all) do
         module DummyModule
-          MY_CONST = "Test"
-          ANOTHER_CONST = "Another Test"
+          MY_CONST = 'Test'
+          ANOTHER_CONST = 'Another Test'
         end
       end
 
@@ -15,19 +15,19 @@ RSpec.describe ConstantVision do
       end
 
       it 'finds MY_CONST' do
-        result = ConstantVision.find_constant("MY_CONST")
+        result = ConstantVision.find_constant('MY_CONST')
         expect(result).to eq([DummyModule::MY_CONST])
       end
 
       it 'finds ANOTHER_CONST' do
-        result = ConstantVision.find_constant("ANOTHER_CONST")
+        result = ConstantVision.find_constant('ANOTHER_CONST')
         expect(result).to eq([DummyModule::ANOTHER_CONST])
       end
     end
 
     context 'when no constants are defined' do
       it 'returns an empty array for OTHER_CONST' do
-        result = ConstantVision.find_constant("OTHER_CONST")
+        result = ConstantVision.find_constant('OTHER_CONST')
 
         expect(result).to eq([])
       end
@@ -45,8 +45,7 @@ RSpec.describe ConstantVision do
         module Foo
           module Bar
             class Baz
-              def foo
-              end
+              def foo; end
             end
           end
         end
@@ -58,12 +57,12 @@ RSpec.describe ConstantVision do
       end
 
       it 'finds Bar' do
-        result = ConstantVision.find_constant("Bar")
+        result = ConstantVision.find_constant('Bar')
         expect(result).to eq([Bar, Foo::Bar])
       end
 
       it 'finds Bar::Baz' do
-        result = ConstantVision.find_constant("Bar::Baz")
+        result = ConstantVision.find_constant('Bar::Baz')
         expect(result).to eq([Foo::Bar::Baz])
       end
     end
@@ -73,7 +72,7 @@ RSpec.describe ConstantVision do
     context 'when the constant is defined in the top level namespace' do
       before do
         module DummyModule
-          MY_CONST = "Test"
+          MY_CONST = 'Test'
         end
       end
 
@@ -82,7 +81,7 @@ RSpec.describe ConstantVision do
       end
 
       it 'finds MY_CONST' do
-        result = ConstantVision.find_origin_of_constant("MY_CONST", DummyModule)
+        result = ConstantVision.find_origin_of_constant('MY_CONST', DummyModule)
         expect(result).to eq(DummyModule)
       end
     end
@@ -106,7 +105,7 @@ RSpec.describe ConstantVision do
       end
 
       it 'finds MY_CONST' do
-        result = ConstantVision.find_origin_of_constant("Bar::Piyo", Foo::Bar)
+        result = ConstantVision.find_origin_of_constant('Bar::Piyo', Foo::Bar)
         expect(result).to eq(Foo::Bar)
       end
     end
@@ -134,7 +133,7 @@ RSpec.describe ConstantVision do
       end
 
       it 'finds Foo::Bar' do
-        result = ConstantVision.find_origin_of_constant("Bar::Piyo", Foo::Bar::Baz)
+        result = ConstantVision.find_origin_of_constant('Bar::Piyo', Foo::Bar::Baz)
         expect(result).to eq(Foo::Bar)
       end
     end

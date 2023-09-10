@@ -1,23 +1,21 @@
 # frozen_string_literal: true
 
-require_relative "constant_vision/version"
+require_relative 'constant_vision/version'
 
 module ConstantVision
   def self.find_origin_of_constant(constant_name, context)
-    namespaces = context.name.split("::")
-    base_constant = constant_name.split("::").first
+    namespaces = context.name.split('::')
+    base_constant = constant_name.split('::').first
 
     # 名前空間を逆順に走査して、該当する名前空間を検索
     matching_namespace = namespaces.reverse_each.find do |namespace|
-      current_module = constant_from_string(namespaces[0..namespaces.index(namespace)].join("::"))
+      current_module = constant_from_string(namespaces[0..namespaces.index(namespace)].join('::'))
       # 名前空間に該当する定数が存在するか、名前空間と定数名が一致する
       current_module.const_defined?(base_constant, false) || namespace == base_constant
     end
 
     # 該当する名前空間が見つかった場合
-    if matching_namespace
-      return constant_from_string(namespaces[0..namespaces.index(matching_namespace)].join("::"))
-    end
+    return constant_from_string(namespaces[0..namespaces.index(matching_namespace)].join('::')) if matching_namespace
 
     # トップレベルでの検索
     return Object if Object.const_defined?(base_constant, false)
@@ -43,9 +41,7 @@ module ConstantVision
 
       next if mod == Object # Objectのそれ以外の定数は処理から除外
 
-      if mod.const_defined?(constant_name, false)  # falseを指定することで、継承チェーンを検索しない
-        matching_modules << mod.const_get(constant_name)
-      end
+      matching_modules << mod.const_get(constant_name) if mod.const_defined?(constant_name, false) # falseを指定することで、継承チェーンを検索しない
     end
 
     matching_modules
