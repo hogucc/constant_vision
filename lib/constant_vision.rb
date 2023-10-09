@@ -4,8 +4,8 @@ require_relative 'constant_vision/version'
 
 module ConstantVision
   def self.find_origin_of_constant(constant_name, context)
-    namespaces = context.name.split('::')
-    base_constant = constant_name.split('::').first
+    namespaces = context.to_s.split('::')
+    base_constant = constant_name.to_s.split('::').first
 
     # 名前空間を逆順に走査して、該当する名前空間を検索
     matching_namespace = namespaces.reverse_each.find do |namespace|
