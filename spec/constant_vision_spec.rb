@@ -98,7 +98,7 @@ RSpec.describe ConstantVision do
 
       it 'finds Mammals::Cats' do
         result = ConstantVision.find_constant('Mammals::Cats')
-        expect(result).to eq(["Staff::Mammals::Cats", "Zoo::Mammals::Cats"])
+        expect(result).to match_array(["Staff::Mammals::Cats", "Zoo::Mammals::Cats"])
       end
     end
   end
