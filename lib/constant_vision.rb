@@ -58,7 +58,7 @@ module ConstantVision
 
     ObjectSpace.each_object(Module) do |mod|
       if mod == Object && Object.const_defined?(constant_name, false)
-        matching_modules << Object.const_get(constant_name).to_s
+        matching_modules << constant_name
         next
       end
 
