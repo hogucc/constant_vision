@@ -70,7 +70,7 @@ module ConstantVision
 
       if mod.const_defined?(constant_name, false)
         # モジュールの名前を取得し、定数名と連結
-        full_name = "#{mod.name}::#{constant_name}"
+        full_name = [mod.name, constant_name.delete_prefix('::')].join('::')
         matching_modules << full_name
       end
     end
