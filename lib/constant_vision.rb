@@ -3,6 +3,10 @@
 require_relative 'constant_vision/version'
 
 module ConstantVision
+  def self.search(constant_name, context)
+    "origin: #{find_origin_of_constant(constant_name, context)}, candidates: #{find_constant(constant_name)}"
+  end
+
   def self.find_origin_of_constant(constant_name, context)
     Rails.application.eager_load! if defined?(Rails)
 
