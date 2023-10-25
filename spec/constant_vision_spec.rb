@@ -16,12 +16,12 @@ RSpec.describe ConstantVision do
 
       it 'finds MY_CONST' do
         result = ConstantVision.find_constant('MY_CONST')
-        expect(result).to eq(["DummyModule::MY_CONST"])
+        expect(result).to eq("DummyModule::MY_CONST")
       end
 
       it 'finds ANOTHER_CONST' do
         result = ConstantVision.find_constant('ANOTHER_CONST')
-        expect(result).to eq(["DummyModule::ANOTHER_CONST"])
+        expect(result).to eq("DummyModule::ANOTHER_CONST")
       end
     end
 
@@ -29,7 +29,7 @@ RSpec.describe ConstantVision do
       it 'returns an empty array for OTHER_CONST' do
         result = ConstantVision.find_constant('OTHER_CONST')
 
-        expect(result).to eq([])
+        expect(result).to be_empty
       end
     end
 
@@ -58,12 +58,12 @@ RSpec.describe ConstantVision do
 
       it 'finds Bar' do
         result = ConstantVision.find_constant('Bar')
-        expect(result).to eq(["Bar", "Foo::Bar"])
+        expect(result).to eq("Bar,Foo::Bar")
       end
 
       it 'finds Bar::Baz' do
         result = ConstantVision.find_constant('Bar::Baz')
-        expect(result).to eq(["Foo::Bar::Baz"])
+        expect(result).to eq("Foo::Bar::Baz")
       end
     end
 
@@ -93,12 +93,12 @@ RSpec.describe ConstantVision do
 
       it 'finds Mammals::Cats::Lion' do
         result = ConstantVision.find_constant('Mammals::Cats::Lion')
-        expect(result).to eq(["Zoo::Mammals::Cats::Lion"])
+        expect(result).to eq("Zoo::Mammals::Cats::Lion")
       end
 
       it 'finds Mammals::Cats' do
         result = ConstantVision.find_constant('Mammals::Cats')
-        expect(result).to match_array(["Staff::Mammals::Cats", "Zoo::Mammals::Cats"])
+        expect(result).to eq("Staff::Mammals::Cats,Zoo::Mammals::Cats")
       end
     end
   end

@@ -75,6 +75,6 @@ module ConstantVision
       end
     end
 
-    matching_modules
+    matching_modules.join(",")
   end
 end
